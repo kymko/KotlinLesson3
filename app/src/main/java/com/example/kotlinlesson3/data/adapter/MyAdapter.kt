@@ -6,44 +6,46 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinlesson3.R
-import com.example.kotlinlesson3.data.model.Images
 import com.example.kotlinlesson3.databinding.ItemListBinding
+import com.example.kotlinlesson3.extensions.load
 
-class MyAdapter(private val img: ArrayList<Images>) :
+class MyAdapter(private val imgUrls: ArrayList<String>) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-    private lateinit var clickListener: OnItemClickListener
+     private lateinit var clickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)) }
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        holder.onBind(img[position],clickListener)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false),clickListener
+        )
     }
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.onBind(imgUrls[position])
+    }
+
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         clickListener = listener
     }
 
-    override fun getItemCount() = img.size
+    override fun getItemCount() = imgUrls.size
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, var clickListener: OnItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
 
         private val binding = ItemListBinding.bind(itemView)
 
-        fun onBind(images: Images,listener: OnItemClickListener) {
-            binding.imageView.setImageResource(images.image)
-            itemView.setOnClickListener{
-                listener.onItemClick(images)
+        fun onBind(imgUrl: String) {
+            itemView.setOnClickListener {
+                clickListener.onItemClick(imgUrl)
                 it.setBackgroundColor(Color.YELLOW)
+                binding.imageView.load(imgUrl)
             }
-
         }
     }
 
-    interface OnItemClickListener{
-        fun onItemClick(img: Images)
+    interface OnItemClickListener {
+        fun onItemClick(img: String)
     }
 }
