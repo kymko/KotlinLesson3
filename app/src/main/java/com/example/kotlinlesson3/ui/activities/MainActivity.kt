@@ -7,7 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kotlinlesson3.R
-import com.example.kotlinlesson3.data.adapter.MyAdapter
+import com.example.kotlinlesson3.ui.activities.adapter.MyAdapter
 import com.example.kotlinlesson3.extensions.showToast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private var imgUrls: ArrayList<String> = ArrayList()
     private var myAdapter: MyAdapter? = null
+    var urlList = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         myAdapter?.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
 
-            override fun onItemClick(url: String) {
+            override fun onItemClick(imgUrl: String) {
                 showToast("item clicked!")
-                 Intent(this@MainActivity,SelectedActivity::class.java).apply {
-                    putExtra(KEY_RES,url)
-                }
+                urlList.add(imgUrl)
             }
         })
     }
@@ -61,9 +60,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openAnotherActivity() {
-        intent = Intent(this, SelectedActivity::class.java)
+        val intent = Intent(this@MainActivity,SelectedActivity::class.java).apply {
+            putStringArrayListExtra(KEY_RES, urlList)
+        }
         startActivity(intent)
-
     }
 
     companion object {

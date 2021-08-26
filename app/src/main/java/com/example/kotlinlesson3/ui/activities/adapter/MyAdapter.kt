@@ -1,4 +1,4 @@
-package com.example.kotlinlesson3.data.adapter
+package com.example.kotlinlesson3.ui.activities.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -16,7 +16,8 @@ class MyAdapter(private val imgUrls: ArrayList<String>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false),clickListener
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false),
+            clickListener
         )
     }
 
