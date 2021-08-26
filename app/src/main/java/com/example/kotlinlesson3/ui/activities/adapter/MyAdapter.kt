@@ -25,7 +25,6 @@ class MyAdapter(private val imgUrls: ArrayList<String>) :
         holder.onBind(imgUrls[position])
     }
 
-
     fun setOnItemClickListener(listener: OnItemClickListener) {
         clickListener = listener
     }
@@ -38,10 +37,11 @@ class MyAdapter(private val imgUrls: ArrayList<String>) :
         private val binding = ItemListBinding.bind(itemView)
 
         fun onBind(imgUrl: String) {
+
+            binding.imageView.load(imgUrl)
             itemView.setOnClickListener {
                 clickListener.onItemClick(imgUrl)
                 it.setBackgroundColor(Color.YELLOW)
-                binding.imageView.load(imgUrl)
             }
         }
     }

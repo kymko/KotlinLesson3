@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/menu_send"
-        android:title=""
-        tools:icon="@drawable/ic_add_task"
+        android:title="send"
+       />/ tools:icon="@drawable/ic_add_task"
         app:showAsAction="always"/>
 </menu>
