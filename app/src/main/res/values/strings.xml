@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Выбор фотографии</string>
+    <string name="selectedImg">Выбранные фотографии</string>
+    <string name="images">Выбор фотографий</string>
+    <string name="send">send</string>
+</resources>
